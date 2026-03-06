@@ -26,7 +26,7 @@ const Signup = () => {
 
   const handleSubmit = (e)=>{
     e.preventDefault();
-    navigate("/role-selection");
+    navigate("/medical-profile");
   };
 
   return (

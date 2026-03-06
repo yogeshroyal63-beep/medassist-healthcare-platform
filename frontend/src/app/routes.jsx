@@ -7,6 +7,7 @@ import RoleSelection from "../features/auth/pages/RoleSelection.jsx";
 import PatientDashboard from "../features/patient/pages/PatientDashboard.jsx";
 import DoctorDashboard from "../features/doctors/pages/DoctorDashboard.jsx";
 import AdminDashboard from "../features/admin/pages/AdminDashboard.jsx";
+import MedicalProfile from "../features/auth/pages/MedicalProfile";
 
 import ProtectedRoute from "../shared/components/ProtectedRoute.jsx";
 import RoleGuard from "../shared/components/RoleGuard.jsx";
@@ -19,7 +20,7 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/role" element={<RoleSelection />} />
-
+      <Route path="/medical-profile" element={<MedicalProfile />} />
       <Route
         path="/dashboard"
         element={
