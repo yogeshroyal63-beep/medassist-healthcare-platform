@@ -1,7 +1,6 @@
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-
   const role = localStorage.getItem("role");
 
   if (!role) {

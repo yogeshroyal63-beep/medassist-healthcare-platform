@@ -1,7 +1,6 @@
 import { Navigate } from "react-router-dom";
 
 const RoleGuard = ({ children, role }) => {
-
   const storedRole = localStorage.getItem("role");
 
   if (storedRole !== role) {
