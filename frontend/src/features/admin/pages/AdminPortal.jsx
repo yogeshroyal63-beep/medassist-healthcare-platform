@@ -116,7 +116,7 @@ const AdminPortal = () => {
         />
         <div className="mt-3 space-y-2">
           {filteredPending.map((d) => (
-            <div key={d._id} className="rounded-lg border border-slate-200 bg-white p-3 text-sm">
+            <div key={d._id} className="rounded-lg border border-black/10 bg-white/50 p-3 text-sm">
               <div className="flex items-center justify-between gap-3">
                 <div>
                   <p className="font-medium text-slate-900">{d.user?.fullName}</p>
@@ -148,7 +148,7 @@ const AdminPortal = () => {
         <h3 className="text-lg">Audit Logs</h3>
         <div className="mt-3 space-y-2">
           {pagedLogs.map((l) => (
-            <div key={l._id} className="rounded-lg border border-slate-200 bg-white p-3 text-sm">{l.action} - {l.target}</div>
+            <div key={l._id} className="rounded-lg border border-black/10 bg-white/50 p-3 text-sm">{l.action} - {l.target}</div>
           ))}
           {!logs.length && <p className="text-sm text-slate-500">No audit events available.</p>}
         </div>
