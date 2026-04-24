@@ -1,1 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap");
 @import "tailwindcss";
+
+:root {
+  --brand-950: #061227;
+  --brand-900: #0b1f39;
+  --brand-700: #12416d;
+  --brand-500: #0ea5b7;
+  --brand-300: #71d9df;
+  --surface: #eef4f8;
+  --card: #ffffff;
+  --ring: rgba(14, 165, 183, 0.35);
+}
+
+body {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(113, 217, 223, 0.22), transparent 30%),
+    radial-gradient(circle at 85% 95%, rgba(14, 165, 183, 0.2), transparent 35%),
+    var(--surface);
+  color: #0f172a;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Fraunces", serif;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  box-shadow: 0 15px 50px rgba(2, 32, 71, 0.08);
+}
+
+.input-ui {
+  width: 100%;
+  border-radius: 0.8rem;
+  border: 1px solid rgb(203 213 225);
+  background: #fff;
+  padding: 0.72rem 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-ui:focus {
+  border-color: var(--brand-500);
+  box-shadow: 0 0 0 4px var(--ring);
+}
