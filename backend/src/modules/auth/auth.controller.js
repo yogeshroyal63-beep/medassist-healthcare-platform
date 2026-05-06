@@ -27,5 +27,22 @@ async function me(req, res, next) {
   }
 }
 
-module.exports = { register, login, me };
+async function forgotPassword(req, res, next) {
+  try {
+    const result = await authService.forgotPassword(req.body);
+    res.json(result);
+  } catch (e) {
+    next(e);
+  }
+}
 
+async function resetPassword(req, res, next) {
+  try {
+    const result = await authService.resetPassword(req.body);
+    res.json(result);
+  } catch (e) {
+    next(e);
+  }
+}
+
+module.exports = { register, login, me, forgotPassword, resetPassword };

@@ -10,6 +10,8 @@ const userSchema = new mongoose.Schema(
     isApproved: { type: Boolean, default: true },
     avatar: { type: String, default: "" },
     phone: { type: String, default: "" },
+    resetToken: { type: String, default: null, select: false },
+    resetTokenExpiry: { type: Date, default: null, select: false },
   },
   { timestamps: true }
 );
@@ -25,4 +27,3 @@ userSchema.methods.comparePassword = async function compare(pw) {
 };
 
 module.exports = mongoose.model("User", userSchema);
-

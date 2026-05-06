@@ -26,5 +26,11 @@ module.exports = {
   jwtRefreshSecret: requiredEnv("JWT_REFRESH_SECRET", "medassist_refresh_secret"),
   accessTokenTtl: process.env.ACCESS_TOKEN_TTL || "15m",
   refreshTokenTtl: process.env.REFRESH_TOKEN_TTL || "7d",
-  frontendUrl: process.env.FRONTEND_URL || "http://localhost:5173"
+  frontendUrl: process.env.FRONTEND_URL || "http://localhost:5173",
+  // Email / SMTP (optional — logs reset URL to console if not set)
+  smtpHost: process.env.SMTP_HOST || null,
+  smtpPort: process.env.SMTP_PORT || 587,
+  smtpUser: process.env.SMTP_USER || null,
+  smtpPass: process.env.SMTP_PASS || null,
+  smtpFrom: process.env.SMTP_FROM || null,
 };
