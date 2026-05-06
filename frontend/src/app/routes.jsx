@@ -1,14 +1,15 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Login from "../features/auth/pages/Login.jsx";
-import Signup from "../features/auth/pages/Signup.jsx";
-import RoleSelection from "../features/auth/pages/RoleSelection.jsx";
-import PatientPortal from "../features/patient/pages/PatientPortal.jsx";
-import DoctorPortal from "../features/doctors/pages/DoctorPortal.jsx";
-import AdminPortal from "../features/admin/pages/AdminPortal.jsx";
-
-import ProtectedRoute from "../shared/components/ProtectedRoute.jsx";
-import RoleGuard from "../shared/components/RoleGuard.jsx";
-import AppShell from "../shared/components/AppShell.jsx";
+import Login from "../features/auth/pages/Login";
+import Signup from "../features/auth/pages/Signup";
+import RoleSelection from "../features/auth/pages/RoleSelection";
+import ForgotPassword from "../features/auth/pages/ForgotPassword";
+import ResetPassword from "../features/auth/pages/ResetPassword";
+import PatientPortal from "../features/patient/pages/PatientPortal";
+import DoctorPortal from "../features/doctors/pages/DoctorPortal";
+import AdminPortal from "../features/admin/pages/AdminPortal";
+import ProtectedRoute from "../shared/components/ProtectedRoute";
+import RoleGuard from "../shared/components/RoleGuard";
+import AppShell from "../shared/components/AppShell";
 import { useAuth } from "../shared/hooks/useAuth";
 
 const HomeRedirect = () => {
@@ -21,7 +22,7 @@ const HomeRedirect = () => {
 
 const PublicOnlyRoute = ({ children }) => {
   const { user } = useAuth();
-  return user ? <HomeRedirect /> : children;
+  return user ? <HomeRedirect /> : <>{children}</>;
 };
 
 const AppRoutes = () => {
@@ -32,6 +33,8 @@ const AppRoutes = () => {
       <Route path="/signup" element={<PublicOnlyRoute><Signup /></PublicOnlyRoute>} />
       <Route path="/role" element={<PublicOnlyRoute><RoleSelection /></PublicOnlyRoute>} />
       <Route path="/role-selection" element={<PublicOnlyRoute><RoleSelection /></PublicOnlyRoute>} />
+      <Route path="/forgot-password" element={<PublicOnlyRoute><ForgotPassword /></PublicOnlyRoute>} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
         <Route path="/patient/dashboard" element={<RoleGuard role="PATIENT"><PatientPortal /></RoleGuard>} />
         <Route path="/patient/symptom-check" element={<RoleGuard role="PATIENT"><PatientPortal /></RoleGuard>} />
@@ -55,6 +58,7 @@ const AppRoutes = () => {
         <Route path="/admin/users" element={<RoleGuard role="ADMIN"><AdminPortal /></RoleGuard>} />
         <Route path="/admin/audit-logs" element={<RoleGuard role="ADMIN"><AdminPortal /></RoleGuard>} />
       </Route>
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 };
