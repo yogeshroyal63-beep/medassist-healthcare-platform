@@ -1,45 +1,44 @@
-import React, { createContext, useEffect, useMemo, useState } from "react";
+import { createContext, useState, useCallback, useMemo } from "react";
 
-const TOKEN_KEY = "medassist_token";
-const USER_KEY = "medassist_user";
+  export const AuthContext = createContext(null);
 
-export const AuthContext = createContext(null);
+  export function Providers({ children }) {
+    const [user, setUser] = useState(() => {
+      try {
+        const stored = localStorage.getItem("medassist_user");
+        return stored ? JSON.parse(stored) : null;
+      } catch {
+        return null;
+      }
+    });
 
-export function Providers({ children }) {
-  const [token, setToken] = useState(null);
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+    const [token, setToken] = useState(() =>
+      localStorage.getItem("medassist_token") || null
+    );
 
-  useEffect(() => {
-    try {
-      const t = localStorage.getItem(TOKEN_KEY);
-      const u = localStorage.getItem(USER_KEY);
-      if (t) setToken(t);
-      if (u) setUser(JSON.parse(u));
-    } catch {
-      localStorage.removeItem(TOKEN_KEY);
-      localStorage.removeItem(USER_KEY);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+    const login = useCallback((userData, accessToken) => {
+      const normalizedUser = {
+        ...userData,
+        role: (userData.role || "").toUpperCase(),
+      };
+      setUser(normalizedUser);
+      setToken(accessToken);
+      localStorage.setItem("medassist_user", JSON.stringify(normalizedUser));
+      localStorage.setItem("medassist_token", accessToken);
+    }, []);
 
-  const login = (nextUser, nextToken) => {
-    setUser(nextUser);
-    setToken(nextToken);
-    localStorage.setItem(TOKEN_KEY, nextToken);
-    localStorage.setItem(USER_KEY, JSON.stringify(nextUser));
-  };
+    const logout = useCallback(() => {
+      setUser(null);
+      setToken(null);
+      localStorage.removeItem("medassist_user");
+      localStorage.removeItem("medassist_token");
+    }, []);
 
-  const logout = () => {
-    setUser(null);
-    setToken(null);
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(USER_KEY);
-  };
+    const value = useMemo(
+      () => ({ user, token, isAuthenticated: !!user, login, logout }),
+      [user, token, login, logout]
+    );
 
-  const value = useMemo(() => ({ user, token, loading, login, logout }), [user, token, loading]);
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-}
-
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  }
+  

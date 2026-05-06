@@ -1,32 +1,29 @@
 import axios from "axios";
 
-const TOKEN_KEY = "medassist_token";
-const USER_KEY = "medassist_user";
+  const api = axios.create({
+    baseURL: import.meta.env.VITE_API_URL || "/api",
+    timeout: 15000,
+  });
 
-const api = axios.create({ baseURL: "/api" });
+  // Attach JWT token to every request
+  api.interceptors.request.use((config) => {
+    const token = localStorage.getItem("medassist_token");
+    if (token) config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  });
 
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem(TOKEN_KEY);
-  if (token) {
-    config.headers = config.headers || {};
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
-
-api.interceptors.response.use(
-  (res) => res,
-  (error) => {
-    const status = error?.response?.status;
-    if (status === 401) {
-      localStorage.removeItem(TOKEN_KEY);
-      localStorage.removeItem(USER_KEY);
-      if (window.location.pathname !== "/login") {
+  // Auto-redirect to login on 401
+  api.interceptors.response.use(
+    (res) => res,
+    (err) => {
+      if (err.response?.status === 401) {
+        localStorage.removeItem("medassist_token");
+        localStorage.removeItem("medassist_user");
         window.location.href = "/login";
       }
+      return Promise.reject(err);
     }
-    return Promise.reject(error);
-  }
-);
+  );
 
-export default api;
+  export default api;
+  
