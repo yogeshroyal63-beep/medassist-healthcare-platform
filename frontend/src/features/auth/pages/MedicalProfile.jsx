@@ -26,50 +26,28 @@ const MedicalProfile = () => {
 
   const handleSubmit = (e)=>{
     e.preventDefault();
-    navigate("/role-selection");
+    navigate("/login");
   };
 
   return (
-
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#f5f7fb] font-sans">
-
-      {/* Logo */}
-
-      <div className="flex items-center gap-3 mb-6">
-
-        <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center relative">
-          <div className="absolute w-6 h-[3px] bg-white rounded"></div>
-          <div className="absolute h-6 w-[3px] bg-white rounded"></div>
+    <div className="min-h-screen px-4 py-12">
+      <div className="mx-auto max-w-3xl">
+        <div className="mb-6 text-center">
+          <p className="text-3xl text-[var(--brand-700)]">MedAssist</p>
+          <p className="mt-1 text-sm muted">Step 2 of 2 • Complete your medical profile</p>
         </div>
-
-        <span className="text-3xl font-bold text-blue-500">
-          MedAssist
-        </span>
-
-      </div>
-
-
-      {/* Card */}
-
-      <div className="bg-white w-[600px] p-8 rounded-xl shadow-lg">
+        <div className="glass-card rounded-3xl p-8">
 
         {/* Progress */}
 
-        <div className="w-full h-2 bg-gray-200 rounded mb-4">
-          <div className="w-full h-2 bg-blue-500 rounded"></div>
+        <div className="mb-5">
+          <div className="h-2 w-full rounded-full bg-black/5">
+            <div className="h-2 w-full rounded-full bg-[var(--brand-500)]"></div>
+          </div>
         </div>
 
-        <p className="text-sm text-gray-500 mb-3">
-          Step 2 of 2
-        </p>
-
-        <h2 className="text-xl font-semibold">
-          Complete your medical profile
-        </h2>
-
-        <p className="text-gray-500 text-sm mb-6">
-          Help us personalize your healthcare experience
-        </p>
+        <h2 className="text-2xl text-slate-900">Complete your medical profile</h2>
+        <p className="mt-1 text-sm muted">Help us personalize your healthcare experience.</p>
 
 
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -80,7 +58,7 @@ const MedicalProfile = () => {
           <div className="grid grid-cols-2 gap-4">
 
             <div>
-              <label className="text-sm">
+              <label className="text-sm font-medium">
                 Date of Birth *
               </label>
 
@@ -89,12 +67,12 @@ const MedicalProfile = () => {
                 name="dob"
                 value={form.dob}
                 onChange={handleChange}
-                className="w-full border border-gray-300 p-2 rounded-md mt-1"
+                className="input-ui mt-1"
               />
             </div>
 
             <div>
-              <label className="text-sm">
+              <label className="text-sm font-medium">
                 Gender *
               </label>
 
@@ -102,7 +80,7 @@ const MedicalProfile = () => {
                 name="gender"
                 value={form.gender}
                 onChange={handleChange}
-                className="w-full border border-gray-300 p-2 rounded-md mt-1"
+                className="input-ui mt-1"
               >
                 <option value="">Select gender</option>
                 <option>Male</option>
@@ -119,7 +97,7 @@ const MedicalProfile = () => {
           <div className="grid grid-cols-3 gap-4">
 
             <div>
-              <label className="text-sm">
+              <label className="text-sm font-medium">
                 Blood Group *
               </label>
 
@@ -127,7 +105,7 @@ const MedicalProfile = () => {
                 name="bloodGroup"
                 value={form.bloodGroup}
                 onChange={handleChange}
-                className="w-full border border-gray-300 p-2 rounded-md mt-1"
+                className="input-ui mt-1"
               >
                 <option>Select</option>
                 <option>A+</option>
@@ -142,7 +120,7 @@ const MedicalProfile = () => {
             </div>
 
             <div>
-              <label className="text-sm">
+              <label className="text-sm font-medium">
                 Height (cm) *
               </label>
 
@@ -151,12 +129,12 @@ const MedicalProfile = () => {
                 value={form.height}
                 onChange={handleChange}
                 placeholder="170"
-                className="w-full border border-gray-300 p-2 rounded-md mt-1"
+                className="input-ui mt-1"
               />
             </div>
 
             <div>
-              <label className="text-sm">
+              <label className="text-sm font-medium">
                 Weight (kg) *
               </label>
 
@@ -165,7 +143,7 @@ const MedicalProfile = () => {
                 value={form.weight}
                 onChange={handleChange}
                 placeholder="70"
-                className="w-full border border-gray-300 p-2 rounded-md mt-1"
+                className="input-ui mt-1"
               />
             </div>
 
@@ -175,7 +153,7 @@ const MedicalProfile = () => {
           {/* Allergies */}
 
           <div>
-            <label className="text-sm">
+            <label className="text-sm font-medium">
               Known Allergies
             </label>
 
@@ -184,7 +162,7 @@ const MedicalProfile = () => {
               value={form.allergies}
               onChange={handleChange}
               placeholder="List any known allergies (e.g., penicillin, peanuts)"
-              className="w-full border border-gray-300 p-2 rounded-md mt-1"
+              className="input-ui mt-1 min-h-24"
             />
           </div>
 
@@ -192,7 +170,7 @@ const MedicalProfile = () => {
           {/* Conditions */}
 
           <div>
-            <label className="text-sm">
+            <label className="text-sm font-medium">
               Existing Medical Conditions
             </label>
 
@@ -201,17 +179,17 @@ const MedicalProfile = () => {
               value={form.conditions}
               onChange={handleChange}
               placeholder="List any existing conditions (e.g., diabetes, hypertension)"
-              className="w-full border border-gray-300 p-2 rounded-md mt-1"
+              className="input-ui mt-1 min-h-24"
             />
           </div>
 
 
-          <hr className="my-4"/>
+          <hr className="my-4 border-black/5" />
 
 
           {/* Emergency Contact */}
 
-          <h3 className="font-semibold">
+          <h3 className="font-semibold text-slate-900">
             Emergency Contact
           </h3>
 
@@ -219,7 +197,7 @@ const MedicalProfile = () => {
           <div className="grid grid-cols-2 gap-4">
 
             <div>
-              <label className="text-sm">
+              <label className="text-sm font-medium">
                 Name *
               </label>
 
@@ -228,12 +206,12 @@ const MedicalProfile = () => {
                 value={form.emergencyName}
                 onChange={handleChange}
                 placeholder="Emergency contact name"
-                className="w-full border border-gray-300 p-2 rounded-md mt-1"
+                className="input-ui mt-1"
               />
             </div>
 
             <div>
-              <label className="text-sm">
+              <label className="text-sm font-medium">
                 Phone Number *
               </label>
 
@@ -242,7 +220,7 @@ const MedicalProfile = () => {
                 value={form.emergencyPhone}
                 onChange={handleChange}
                 placeholder="+1 (555) 000-0000"
-                className="w-full border border-gray-300 p-2 rounded-md mt-1"
+                className="input-ui mt-1"
               />
             </div>
 
@@ -256,14 +234,14 @@ const MedicalProfile = () => {
             <button
               type="button"
               onClick={()=>navigate("/signup")}
-              className="w-full border border-gray-300 py-3 rounded-lg"
+              className="w-full rounded-xl border border-black/10 bg-white/40 py-3 font-semibold text-slate-800 transition hover:bg-white/60"
             >
               Back
             </button>
 
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600"
+              className="w-full rounded-xl bg-[var(--brand-700)] py-3 font-semibold text-white transition hover:bg-[var(--brand-900)]"
             >
               Create Account
             </button>
@@ -272,13 +250,11 @@ const MedicalProfile = () => {
 
         </form>
 
+        </div>
+        <p className="mt-6 text-center text-xs muted">
+          By creating an account, you agree to our Terms and Privacy Policy
+        </p>
       </div>
-
-
-      <p className="text-xs text-gray-500 mt-6">
-        By creating an account, you agree to our Terms and Privacy Policy
-      </p>
-
     </div>
 
   );

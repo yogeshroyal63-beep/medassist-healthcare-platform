@@ -1,5 +1,4 @@
-import { Routes, Route } from "react-router-dom";
-import Landing from "../features/public/pages/Landing.jsx";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "../features/auth/pages/Login.jsx";
 import Signup from "../features/auth/pages/Signup.jsx";
 import RoleSelection from "../features/auth/pages/RoleSelection.jsx";
@@ -10,15 +9,29 @@ import AdminPortal from "../features/admin/pages/AdminPortal.jsx";
 import ProtectedRoute from "../shared/components/ProtectedRoute.jsx";
 import RoleGuard from "../shared/components/RoleGuard.jsx";
 import AppShell from "../shared/components/AppShell.jsx";
+import { useAuth } from "../shared/hooks/useAuth";
+
+const HomeRedirect = () => {
+  const { user } = useAuth();
+  if (!user) return <Navigate to="/login" replace />;
+  if (user.role === "ADMIN") return <Navigate to="/admin/dashboard" replace />;
+  if (user.role === "DOCTOR") return <Navigate to="/doctor/dashboard" replace />;
+  return <Navigate to="/patient/dashboard" replace />;
+};
+
+const PublicOnlyRoute = ({ children }) => {
+  const { user } = useAuth();
+  return user ? <HomeRedirect /> : children;
+};
 
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Landing />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/role" element={<RoleSelection />} />
-      <Route path="/role-selection" element={<RoleSelection />} />
+      <Route path="/" element={<HomeRedirect />} />
+      <Route path="/login" element={<PublicOnlyRoute><Login /></PublicOnlyRoute>} />
+      <Route path="/signup" element={<PublicOnlyRoute><Signup /></PublicOnlyRoute>} />
+      <Route path="/role" element={<PublicOnlyRoute><RoleSelection /></PublicOnlyRoute>} />
+      <Route path="/role-selection" element={<PublicOnlyRoute><RoleSelection /></PublicOnlyRoute>} />
       <Route element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
         <Route path="/patient/dashboard" element={<RoleGuard role="PATIENT"><PatientPortal /></RoleGuard>} />
         <Route path="/patient/symptom-check" element={<RoleGuard role="PATIENT"><PatientPortal /></RoleGuard>} />

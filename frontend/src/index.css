@@ -8,8 +8,24 @@
   --brand-500: #0ea5b7;
   --brand-300: #71d9df;
   --surface: #eef4f8;
+  --surface-elevated: #f8fbfd;
   --card: #ffffff;
+  --text: #0f172a;
+  --text-muted: #475569;
+  --border: rgba(148, 163, 184, 0.35);
+  --shadow: rgba(2, 32, 71, 0.08);
   --ring: rgba(14, 165, 183, 0.35);
+}
+
+html[data-theme="dark"] {
+  --surface: #070c16;
+  --surface-elevated: #0a1222;
+  --card: rgba(255, 255, 255, 0.06);
+  --text: #e5e7eb;
+  --text-muted: rgba(226, 232, 240, 0.72);
+  --border: rgba(148, 163, 184, 0.2);
+  --shadow: rgba(0, 0, 0, 0.55);
+  --ring: rgba(113, 217, 223, 0.25);
 }
 
 body {
@@ -19,7 +35,7 @@ body {
     radial-gradient(circle at 15% 10%, rgba(113, 217, 223, 0.22), transparent 30%),
     radial-gradient(circle at 85% 95%, rgba(14, 165, 183, 0.2), transparent 35%),
     var(--surface);
-  color: #0f172a;
+  color: var(--text);
 }
 
 h1,
@@ -29,23 +45,27 @@ h3 {
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.82);
+  background: color-mix(in srgb, var(--card) 88%, transparent);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  box-shadow: 0 15px 50px rgba(2, 32, 71, 0.08);
+  border: 1px solid var(--border);
+  box-shadow: 0 15px 50px var(--shadow);
 }
 
 .input-ui {
   width: 100%;
   border-radius: 0.8rem;
-  border: 1px solid rgb(203 213 225);
-  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  background: color-mix(in srgb, var(--card) 92%, transparent);
   padding: 0.72rem 0.9rem;
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .input-ui:focus {
   border-color: var(--brand-500);
   box-shadow: 0 0 0 4px var(--ring);
+}
+
+.muted {
+  color: var(--text-muted);
 }

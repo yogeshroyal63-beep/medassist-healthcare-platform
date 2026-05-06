@@ -1,43 +1,44 @@
 const express = require("express");
 const cors = require("cors");
-const helmet = require("helmet");
 const morgan = require("morgan");
-const cookieParser = require("cookie-parser");
-const rateLimit = require("express-rate-limit");
-const routes = require("./modules/routes");
-const { frontendUrl } = require("./config/env");
+
+const corsOptions = require("./config/cors");
+const rateLimit = require("./middleware/rateLimit.middleware");
+const errorMiddleware = require("./middleware/error.middleware");
+
+const authRoutes = require("./modules/auth/auth.routes");
+const userRoutes = require("./modules/users/user.routes");
+const doctorRoutes = require("./modules/doctors/doctor.routes");
+const appointmentRoutes = require("./modules/appointments/appointment.routes");
+const medicationRoutes = require("./modules/medications/medication.routes");
+const recordRoutes = require("./modules/records/record.routes");
+const triageRoutes = require("./modules/triage/triage.routes");
+const messageRoutes = require("./modules/messaging/message.routes");
+const videoRoutes = require("./modules/video/video.routes");
+const adminRoutes = require("./modules/admin/admin.routes");
 
 const app = express();
 
-app.use(
-  cors({
-    origin: frontendUrl,
-    credentials: true
-  })
-);
-app.use(helmet());
+app.use(cors(corsOptions()));
 app.use(morgan("dev"));
-app.use(express.json({ limit: "1mb" }));
-app.use(cookieParser());
-
-app.use(
-  "/api/auth",
-  rateLimit({
-    windowMs: 15 * 60 * 1000,
-    limit: 60,
-    standardHeaders: true
-  })
-);
+app.use(express.json({ limit: "2mb" }));
+app.use("/uploads", express.static("uploads"));
 
 app.get("/api/health", (_req, res) => res.json({ status: "ok" }));
-app.use("/api", routes);
 
-app.use((err, _req, res, _next) => {
-  // eslint-disable-next-line no-console
-  console.error(err);
-  const status = err.status || err.statusCode || 500;
-  const message = status < 500 && err.message ? err.message : "Internal server error";
-  res.status(status).json({ message });
-});
+app.use("/api", rateLimit);
+
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/doctors", doctorRoutes);
+app.use("/api/appointments", appointmentRoutes);
+app.use("/api/medications", medicationRoutes);
+app.use("/api/records", recordRoutes);
+app.use("/api/triage", triageRoutes);
+app.use("/api/messages", messageRoutes);
+app.use("/api/video", videoRoutes);
+app.use("/api/admin", adminRoutes);
+
+app.use(errorMiddleware);
 
 module.exports = app;

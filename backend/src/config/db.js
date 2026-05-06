@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 const { mongoUri } = require("./env");
+const logger = require("../utils/logger");
 
-const connectDb = async () => {
+async function connectDb() {
+  mongoose.set("strictQuery", true);
   await mongoose.connect(mongoUri);
-  // eslint-disable-next-line no-console
-  console.log("MongoDB connected");
-};
+  logger.info("MongoDB connected");
+}
 
 module.exports = connectDb;

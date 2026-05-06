@@ -1,16 +1,89 @@
-# React + Vite
+# MedAssist Healthcare Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A comprehensive healthcare platform with AI-powered triage, appointment management, and telemedicine features.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **AI Triage System**: BERT-based symptom analysis and severity assessment
+- **User Management**: Role-based access for patients, doctors, and admins
+- **Appointment Scheduling**: Book and manage medical appointments
+- **Medication Tracking**: Manage prescriptions and medication history
+- **Video Consultation**: Integrated telemedicine capabilities
+- **Secure Authentication**: JWT-based auth with role-based permissions
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend**: React 18, Vite, TailwindCSS
+- **Backend**: Node.js, Express, MongoDB
+- **AI Service**: Python, FastAPI, Transformers
+- **Deployment**: Docker, Docker Compose
 
-## Expanding the ESLint configuration
+## Quick Start
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
+- Docker and Docker Compose
+- Node.js 18+ (for local development)
+- Python 3.11+ (for AI service)
+
+### Development Setup
+
+1. Clone the repository
+2. Set up environment variables (see .env.example)
+3. Run with Docker Compose:
+
+```bash
+docker-compose up --build
+```
+
+Or run services individually:
+
+```bash
+# Backend
+cd backend
+npm install
+npm run dev
+
+# Frontend
+cd frontend
+npm install
+npm run dev
+
+# AI Service
+cd ai_service
+pip install -r requirements.txt
+uvicorn api.main:app --reload
+```
+
+## API Documentation
+
+- Backend API: http://localhost:5000/api/docs
+- AI Service: http://localhost:8000/docs
+
+## Testing
+
+```bash
+# Backend tests
+cd backend
+npm test
+
+# AI service (add tests as needed)
+cd ai_service
+pytest
+```
+
+## Deployment
+
+1. Set production environment variables
+2. Build and run with Docker Compose
+3. Access at http://localhost
+
+## Security Notes
+
+- Change default JWT secrets in production
+- Set admin credentials via environment variables
+- Use HTTPS in production
+- Regularly update dependencies
+
+## License
+
+MIT
