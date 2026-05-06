@@ -1,0 +1,36 @@
+# Node modules
+node_modules/
+
+# Build artifacts
+dist/
+build/
+
+# Environment files
+*.env
+!.env.example
+.env*
+backend/.env
+!backend/.env.example
+ai_service/.env
+frontend/.env
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Docker
+.dockerignore
+
+# Vite
+/.vite
+
